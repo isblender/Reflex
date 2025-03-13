@@ -29,7 +29,7 @@ const Welcome = () => {
               alignItems: 'center',
               justifyContent: 'center',
               height: '100vh',
-              backgroundColor: '#f0f0f0',
+              backgroundColor: 'white',
             }}
           >
             <motion.h1

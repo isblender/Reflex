@@ -1,18 +1,17 @@
-import React from 'react';
-
+// frontend/src/functions/api.js
 const startMode = async (mode) => {
-    console.log(JSON.stringify({ mode }));
-    try {
-      const response = await fetch("http://localhost:5001/api/start", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ mode }), // "1" for Reels, "2" for Dino
-      });
-      const data = await response.json();
-      console.log(data);
-    } catch (error) {
-      console.error("Error starting mode:", error);
+  try {
+    // Check if the Electron API is available
+    if (window.electronAPI && window.electronAPI.runPython) {
+      const response = await window.electronAPI.runPython(mode);
+      console.log('Python response:', response);
+    } else {
+      // Fallback: You can perform a fetch request or show an error if not in Electron.
+      console.error('Electron API not available');
     }
-  };
+  } catch (error) {
+    console.error("Error starting mode:", error);
+  }
+};
 
-export {startMode}
+export { startMode };

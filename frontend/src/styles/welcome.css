@@ -7,3 +7,7 @@
     font-style: italic;
     color: #003d7d;
 }
+
+body {
+    margin: 0;
+}

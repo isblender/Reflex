@@ -1,0 +1,11 @@
+{
+  "scripts": {
+    "start-frontend": "cd frontend && npm start",
+    "start-electron": "concurrently \"npm run start-frontend\" \"wait-on http://localhost:3000 && electron ./electron\""
+  },
+  "devDependencies": {
+    "concurrently": "^9.1.2",
+    "electron": "^35.0.1",
+    "wait-on": "^8.0.3"
+  }
+}
