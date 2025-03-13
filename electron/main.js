@@ -31,10 +31,10 @@ ipcMain.handle('run-python', async (event, mode) => {
       let scriptPath;
       if (mode === "1") {
         // Example: For Instagram Reels; adjust the path to your reels script if you have one
-        scriptPath = path.join(__dirname, '../backend/games/reels.py');
+        scriptPath = path.join(__dirname, '../cv/games/reels.py');
       } else if (mode === "2") {
         // For Dinosaur Game
-        scriptPath = path.join(__dirname, '../backend/games/dino.py');
+        scriptPath = path.join(__dirname, '../cv/games/dino.py');
       } else {
         return reject('Unknown mode');
       }

@@ -24,23 +24,39 @@ def run_dino():
     driver.get("https://elgoog.im/dino/")
     print("Opening Chrome Dino Game...")
     time.sleep(2)
-    # Start the game
-    body = driver.find_element(By.TAG_NAME, "body")
-    body.send_keys(Keys.SPACE)
-    print("Dino Game Started!")
 
     # Camera & Gesture Control
     cap = cv2.VideoCapture(1)  # Adjust camera index if needed
     global prev_status
+    cameraActive = False  # Flag to know when the camera has started capturing frames
+    gameStarted = False
+
     while cap.isOpened():
+        try:
+            if len(driver.window_handles) == 0:
+                print("Chrome window closed. Exiting...")
+                break
+        except Exception as e:
+            print("Error checking Chrome window:", e)
+            break
+        
         ret, frame = cap.read()
         if not ret:
             break
 
         frame = cv2.flip(frame, 1)
         rgb_frame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
-
         result = hands.process(rgb_frame)
+
+        if not cameraActive:
+            cameraActive = True
+            print("Camera activated.")
+            # Now send space to start the game once
+            if not gameStarted:
+                driver.find_element(By.TAG_NAME, "body").send_keys(Keys.SPACE)
+                print("Game Started!")
+                gameStarted = True
+
         if result.multi_hand_landmarks:
             for hand_landmarks in result.multi_hand_landmarks:
                 wrist_y = hand_landmarks.landmark[mp_hands.HandLandmark.WRIST].y
@@ -63,9 +79,9 @@ def run_dino():
                 #cv2.putText(frame, f"Wrist: {status}", (50, 50), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 255, 0), 2)
                 #mp_drawing.draw_landmarks(frame, hand_landmarks, mp_hands.HAND_CONNECTIONS)
 
-        cv2.imshow("Dino Gesture Control", frame)
-        if cv2.waitKey(1) & 0xFF == ord('q'):
-            break
+        #cv2.imshow("Dino Gesture Control", frame)
+        #if cv2.waitKey(1) & 0xFF == ord('q'):
+        #    break
 
     cap.release()
     cv2.destroyAllWindows()

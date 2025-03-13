@@ -29,6 +29,14 @@ def run_reels():
     cap = cv2.VideoCapture(1)  # Adjust camera index if needed
     global prev_status
     while cap.isOpened():
+        try:
+            if len(driver.window_handles) == 0:
+                print("Chrome window closed. Exiting...")
+                break
+        except Exception as e:
+            print("Error checking Chrome window:", e)
+            break
+        
         ret, frame = cap.read()
         if not ret:
             break
@@ -63,11 +71,11 @@ def run_reels():
 
                 # Draw landmarks and display status on the frame
                 cv2.putText(frame, f"Wrist: {status}", (50, 50), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 255, 0), 2)
-                mp_drawing.draw_landmarks(frame, hand_landmarks, mp_hands.HAND_CONNECTIONS)
+                #mp_drawing.draw_landmarks(frame, hand_landmarks, mp_hands.HAND_CONNECTIONS)
 
-        cv2.imshow("Reels Gesture Control", frame)
-        if cv2.waitKey(1) & 0xFF == ord('q'):
-            break
+        #cv2.imshow("Reels Gesture Control", frame)
+        #if cv2.waitKey(1) & 0xFF == ord('q'):
+        #    break
 
     cap.release()
     cv2.destroyAllWindows()
