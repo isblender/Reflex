@@ -15,3 +15,31 @@ const startMode = async (mode) => {
 };
 
 export { startMode };
+
+export const loginUser = async ({ username, password }) => {
+  try {
+    const res = await fetch('http://localhost:5001/api/login', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ username, password }),
+    });
+    return await res.json();
+  } catch (error) {
+    console.error(error);
+    return {};
+  }
+};
+
+export const signupUser = async ({ username, password }) => {
+  try {
+    const res = await fetch('http://localhost:5001/api/signup', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ username, password }),
+    });
+    return await res.json();
+  } catch (error) {
+    console.error(error);
+    return {};
+  }
+};

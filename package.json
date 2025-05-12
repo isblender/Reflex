@@ -1,7 +1,9 @@
 {
   "scripts": {
     "start-frontend": "cd frontend && npm start",
-    "start-electron": "concurrently \"npm run start-frontend\" \"wait-on http://localhost:3000 && electron ./electron\""
+    "start-backend": "cd backend && node server.js",
+    "start-electron": "concurrently \"npm run start-frontend\" \"wait-on http://localhost:3000 && electron ./electron\"",
+    "start-both": "concurrently \"npm run start-backend\" \"npm run start-frontend\""
   },
   "devDependencies": {
     "concurrently": "^9.1.2",

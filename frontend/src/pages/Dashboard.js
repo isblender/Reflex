@@ -2,8 +2,10 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import "../styles/dashboard.css";
 import { startMode } from '../functions/api';
+import { useNavigate } from 'react-router-dom';
 
 const Dashboard = () => {
+  const navigate = useNavigate();
   return (
     <div className="dashboard-container">
       <header className="dashboard-header">
@@ -61,8 +63,8 @@ const Dashboard = () => {
           </div>
           <button onClick={() => startMode("1")} className="option-tile">Instagram Reels</button>
           <button onClick={() => startMode("2")} className="option-tile">Dinosaur Game</button>
-          <button  className="option-tile">History</button>
-          <button className="option-tile">Settings</button>
+          <button onClick={() => navigate('/game/bird')} className="option-tile">Flappy Game</button>
+          <button onClick={() => navigate('/game/rocket')} className="option-tile">Rocket Game</button>
         </div>
       </section>
     </div>

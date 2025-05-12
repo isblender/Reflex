@@ -10,10 +10,12 @@ const Welcome = () => {
   // After 2.5 seconds, trigger fade-out
   useEffect(() => {
     const timer = setTimeout(() => {
-      setShow(false);
-    }, 4000); // adjust this delay as needed
+      setShow(false); // Trigger exit animation if needed
+      // After exit animation, wait a bit more and then navigate
+      setTimeout(() => navigate('/dashboard'), 500);
+    }, 3500);
     return () => clearTimeout(timer);
-  }, []);
+  }, [navigate]);
 
   return (
     <div className="welcome">
